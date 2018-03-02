@@ -1,0 +1,33 @@
+$navHeight: 50px;
+$contentHeight: calc(100vh - 50px);
+body {
+  background: #F3F3F3;
+}
+.nav {
+  height: $navHeight;
+  line-height: $navHeight;
+  background: #DF4D49;
+  text-align: center;
+  h1 {
+    color: #f1f1f1;
+  }
+}
+.drag-panel {
+  .drag-list {
+    height: $contentHeight;
+    background: white;
+  }
+  .drag-container {
+    height: $contentHeight;
+    background: white;
+    text-align: center;
+  }
+  .drag-card {
+    display: block;
+    margin: 5px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #efefef;
+  }
+}
