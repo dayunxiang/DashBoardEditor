@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
 import ItemTypes from '../targets/ItemTypes';
-import { dragComponent, dropComponent } from '../actions/DragAction';
+import { dragComponent } from '../actions/DragAction';
 
 const type = ItemTypes.DRAG;
 const spec = {
@@ -18,10 +18,10 @@ const spec = {
     },
     endDrag(props, monitor) {
         // const item = monitor.getItem()
-        const dropResult = monitor.getDropResult()
-        if(dropResult && dropResult.compType) {
-            props.dropComponent(dropResult.compType)
-        }
+        // const dropResult = monitor.getDropResult()
+        // if(dropResult && dropResult.compType) {
+        //     props.dropComponent(dropResult.compType)
+        // }
     }
 }
 
@@ -31,8 +31,6 @@ class DragCard extends Component {
         isDragging: PropTypes.bool.isRequired,
         compType: PropTypes.string.isRequired
     }
-
-
 
     render() {
         const { isDragging, connectDragSource } = this.props
@@ -53,7 +51,7 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { dragComponent, dropComponent })(DragSource(type, spec,  (connect, monitor) => ({
+export default connect(mapStateToProps, { dragComponent })(DragSource(type, spec,  (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))(DragCard));

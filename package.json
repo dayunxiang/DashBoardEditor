@@ -6,6 +6,7 @@
     "antd": "^3.2.2",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
+    "echarts": "^4.0.4",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dnd": "^2.5.4",

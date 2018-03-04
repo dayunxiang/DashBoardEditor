@@ -12,9 +12,12 @@ class App extends Component {
                 <Row>
                     <Col span={24}>
                         <div className="nav">
-                            <NavLink className="item" activeClassName="active" exact to="/">
-                                <h1>仪表盘编辑器</h1>
-                            </NavLink>
+                            <h1>仪表盘编辑器</h1>
+                            <div className="nav-panel">
+                                <NavLink className="item" activeClassName="active" exact to="/">
+                                    <span>编辑</span>
+                                </NavLink>
+                            </div>
                         </div>
                     </Col>
                 </Row>

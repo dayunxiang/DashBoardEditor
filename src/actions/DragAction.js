@@ -22,3 +22,55 @@ export function dropComponent(type) {
         })
     }
 }
+
+export function focusComponent(index) {
+    return dispatch => {
+        return dispatch({
+            type: 'Focus',
+            payload: {
+                index: index
+            }
+        })
+    }
+}
+
+export function changeCol(col) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeCol',
+            payload: {
+                col: col
+            }
+        })
+    }
+}
+
+export function changeComp(compType) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeComp',
+            payload: {
+                compType: compType
+            }
+        })
+    }
+}
+
+export function closeComp(index) {
+    return dispatch => {
+        return dispatch({
+            type: 'CloseComp',
+            payload: {
+                index: index
+            }
+        })
+    }
+}
+
+export function emptyComp() {
+    return dispatch => {
+        return dispatch({
+            type: 'EmptyComp',
+        })
+    }
+}
