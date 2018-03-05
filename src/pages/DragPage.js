@@ -11,7 +11,7 @@ class ContactListPage extends Component {
         return (
             <DragDropContextProvider backend={HTML5Backend}>
                 <div className="drag-panel">
-                    <Row gutter={16}>
+                    <Row>
                         <Col span={18}>
                             <DropContainer allowedDropEffect="copy"/>
                         </Col>

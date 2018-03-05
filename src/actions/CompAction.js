@@ -45,6 +45,28 @@ export function changeCol(col) {
     }
 }
 
+export function changeHeight(height) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeHeight',
+            payload: {
+                height: height
+            }
+        })
+    }
+}
+
+export function changeBgColor(bgColor) {
+    return dispatch => {
+        return dispatch({
+            type: 'changeBgColor',
+            payload: {
+                bgColor: bgColor
+            }
+        })
+    }
+}
+
 export function changeComp(compType) {
     return dispatch => {
         return dispatch({

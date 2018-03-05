@@ -1,14 +1,14 @@
 /**
  * Created by edeity on 2018/3/2.
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { DropTarget } from 'react-dnd';
-import { connect } from 'react-redux';
-import ItemTypes from '../targets/ItemTypes'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { DropTarget } from 'react-dnd'
+import { connect } from 'react-redux'
+import ItemTypes from '../constants/ItemTypes'
 import { Row, Col, Button, Tooltip, Modal } from 'antd'
-import { dropComponent, focusComponent, closeComp, emptyComp } from '../actions/DragAction';
-import DropCard from './DropCard';
+import { dropComponent, focusComponent, closeComp, emptyComp } from '../actions/CompAction'
+import DropCard from './DropCard'
 
 
 const ButtonGroup = Button.Group;
@@ -16,7 +16,7 @@ const type = ItemTypes.DRAG;
 const confirm = Modal.confirm;
 const spec = {
     drop(props) {
-        const allowedDropEffect = props.allowedDropEffect
+        // const allowedDropEffect = props.allowedDropEffect
         props.dropComponent(props.compType);
         // return {
         //     compType: props.compType,
@@ -38,10 +38,12 @@ class DropContainer extends Component {
     getCompCollection() {
         return this.props.compCollection.map((eachComp, index) => {
             return <DropCard compType={eachComp.compType}
-                             key={index}
+                             key={eachComp.compType + index}
                              index={index}
                              isAcive={this.props.focusIndex===index}
                              col={eachComp.col}
+                             height={eachComp.height}
+                             bgColor={eachComp.bgColor}
                              onFocus={(index)=> {this.onFocus(index)}}
                              onClose={(index)=> {this.onCompClose(index)}}
             />
@@ -70,7 +72,7 @@ class DropContainer extends Component {
     }
     
     render() {
-        const {canDrop, isOver, connectDropTarget, compType, compCollection} = this.props;
+        const {canDrop, isOver, connectDropTarget, compCollection} = this.props;
         const isActive = canDrop && isOver;
 
         let backgroundColor = '#fff';
@@ -87,7 +89,7 @@ class DropContainer extends Component {
                         </Tooltip>
                     </ButtonGroup>
                 </Row>
-                <Row>
+                <Row className="container-comp-panel">
                     {
                         compCollection && compCollection.length > 0 ?
                         this.getCompCollection() :

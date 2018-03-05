@@ -1,17 +1,10 @@
 /**
  * Created by edeity on 2018/3/1.
  */
-const defaultState = {
-    compType: '',
-    compCollection: [],
-    focusIndex: -1,
-}
+import appState from '../constants/appState';
+import compState from '../constants/compState'
 
-const compState = {
-    compType: '',
-    col: 12
-}
-export default(state=defaultState, action={}) => {
+export default(state=appState, action={}) => {
     switch(action.type) {
         case 'Drag': {
             return {
@@ -46,6 +39,14 @@ export default(state=defaultState, action={}) => {
                 compCollection
             }
         }
+        case 'ChangeHeight': {
+            let compCollection = Object.assign([], state.compCollection)
+            compCollection[state.focusIndex].height = action.payload.height
+            return {
+                ...state,
+                compCollection
+            }
+        }
         case 'ChangeComp': {
             let compCollection = Object.assign([], state.compCollection)
             compCollection[state.focusIndex].compType = action.payload.compType
@@ -71,6 +72,14 @@ export default(state=defaultState, action={}) => {
                 ...state,
                 focusIndex: -1,
                 compCollection: []
+            }
+        }
+        case 'changeBgColor': {
+            let compCollection = Object.assign([], state.compCollection)
+            compCollection[state.focusIndex].bgColor = action.payload.bgColor
+            return {
+                ...state,
+                compCollection
             }
         }
         default:

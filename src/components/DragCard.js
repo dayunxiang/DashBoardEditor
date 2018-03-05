@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
-import ItemTypes from '../targets/ItemTypes';
-import { dragComponent } from '../actions/DragAction';
+import ItemTypes from '../constants/ItemTypes';
+import { dragComponent } from '../actions/CompAction';
 
 const type = ItemTypes.DRAG;
 const spec = {
