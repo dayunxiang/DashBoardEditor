@@ -22,33 +22,6 @@ body {
   }
 }
 .drag-panel {
-  .drag-list {
-    padding: 24px 12px;
-    height: $contentHeight;
-    background: white;
-    overflow: auto;
-    .drag-card {
-      display: block;
-      margin: 5px;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      background: #efefef;
-    }
-    .color-container {
-      display: inline-block;
-      border: 1px solid #e1e1e1;
-      padding: 5px;
-      margin: 0 5px 5px;
-      border-radius: 5px;
-      vertical-align: middle;
-      .color-block {
-        width: 40px;
-        height: 20px;
-      }
-    }
-  }
-
   .drop-container {
     position: relative;
     height: $contentHeight;
@@ -61,8 +34,22 @@ body {
       z-index: 2;
       text-align: right;
     }
+    .measure {
+      .measure-block {
+        height: 5px;
+        margin-top: 5px;
+        border-bottom: 1px solid #dadada;
+        border-right: 1px solid #dadada;
+        vert-align: bottom;
+        &.em-block {
+          height: 10px;
+          margin-top: 0;
+          border-right: 1px solid #c1c1c1;
+        }
+      }
+    }
     .container-comp-panel {
-      height: calc(100vh - 95px);
+      height: calc(100vh - 105px);
       overflow: auto;
       .container-tips {
         line-height: calc(100vh - 95px);;
@@ -124,6 +111,50 @@ body {
           }
         }
       }
+    }
+  }
+  .drag-list {
+    padding: 24px 12px;
+    height: $contentHeight;
+    background: white;
+    overflow: auto;
+    .drag-total {
+      height: 50%;
+      overflow: auto;
+    }
+    .drag-config {
+      height: 50%;
+      overflow: auto;
+    }
+    .config-bar {
+      margin-bottom: 5px;
+      text-align: right;
+    }
+    .drag-card {
+      display: block;
+      margin: 5px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background: #efefef;
+      &:hover {
+        background: #e1e1e1;
+      }
+    }
+    .color-container {
+      display: inline-block;
+      border: 1px solid #e1e1e1;
+      padding: 5px;
+      margin: 0 5px 5px;
+      border-radius: 5px;
+      vertical-align: middle;
+      .color-block {
+        width: 40px;
+        height: 20px;
+      }
+    }
+    .ant-form-item {
+      margin-bottom: 0;
     }
   }
 }

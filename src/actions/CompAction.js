@@ -96,3 +96,14 @@ export function emptyComp() {
         })
     }
 }
+
+export function setCompCollection(compCollection) {
+    return dispatch => {
+        return dispatch({
+            type: 'SetCompCollection',
+            payload: {
+                compCollection
+            }
+        })
+    }
+}

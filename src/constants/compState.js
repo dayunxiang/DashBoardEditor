@@ -6,7 +6,8 @@ const compState = {
     compType: '',
     col: 12,
     height: 250,
-    bgColor: '#f0f0f0'
+    bgColor: '#f8f8f8',
+    inOneLine: false
 }
 
 export default compState

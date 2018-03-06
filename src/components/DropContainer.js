@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 import ItemTypes from '../constants/ItemTypes'
+import classnames from 'classnames'
 import { Row, Col, Button, Tooltip, Modal } from 'antd'
 import { dropComponent, focusComponent, closeComp, emptyComp } from '../actions/CompAction'
 import DropCard from './DropCard'
@@ -50,6 +51,19 @@ class DropContainer extends Component {
         })
     }
 
+    getMeasureCol() {
+        let measureCols = []
+        for(let i=1; i<=24; i++) {
+            let isEm = i % 4 === 0 && i !== 24
+            measureCols.push(
+                <Col span={1} key={i}>
+                    <div className={classnames('measure-block', {'em-block': isEm})}></div>
+                </Col>
+            )
+        }
+        return measureCols
+    }
+
     onFocus(index) {
         this.props.focusComponent(index)
     }
@@ -57,6 +71,7 @@ class DropContainer extends Component {
     onCompClose(index) {
         this.props.closeComp(index)
     }
+
 
     ensureEmpty = () => {
         confirm({
@@ -88,6 +103,11 @@ class DropContainer extends Component {
                             <Button type="dashed" shape="circle" icon="delete" size={'small'} onClick={this.ensureEmpty}/>
                         </Tooltip>
                     </ButtonGroup>
+                </Row>
+                <Row className="measure">
+                    {
+                        this.getMeasureCol()
+                    }
                 </Row>
                 <Row className="container-comp-panel">
                     {

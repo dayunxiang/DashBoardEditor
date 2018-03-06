@@ -59,7 +59,6 @@ export default(state=appState, action={}) => {
             let currCloseIndex = action.payload.index
             let compCollection = Object.assign([], state.compCollection)
             compCollection.splice(currCloseIndex, 1)
-            console.log(compCollection)
             let focusIndex = state.focusIndex === currCloseIndex ? currCloseIndex - 1 : state.focusIndex
             return {
                 ...state,
@@ -80,6 +79,12 @@ export default(state=appState, action={}) => {
             return {
                 ...state,
                 compCollection
+            }
+        }
+        case 'SetCompCollection': {
+            return {
+                ...state,
+                compCollection: action.payload.compCollection
             }
         }
         default:
