@@ -81,7 +81,7 @@ class DragList extends Component {
                                 {
                                     compList.map((eachCompType, index) => {
                                         return (
-                                            <Col span="8" key={index}>
+                                            <Col span="6" key={index}>
                                                 <DragCard type={eachCompType}/>
                                             </Col>
                                         )

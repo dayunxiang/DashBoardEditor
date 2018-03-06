@@ -20,7 +20,9 @@ import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import CompTypes from '../constants/CompTypes'
-import { getLineOption, getCircleOption, getRadarOption, getScatterOption, getMapOption } from '../options/CompOptions'
+import { getLineOption, getBarOption, getPieOption, getCandlestickOption,
+    getRadarOption, getScatterOption, getMapOption, getBoxplotOption, getHeatMap,
+    getTreeMap, getSunburstOption, getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption } from '../options/CompOptions'
 
 export default class DropCard extends Component {
     chart = null
@@ -40,12 +42,12 @@ export default class DropCard extends Component {
                 this.compOption = getLineOption()
                 break
             }
-            case CompTypes.Circle: {
-                this.compOption = getCircleOption()
+            case CompTypes.Bar: {
+                this.compOption = getBarOption()
                 break
             }
-            case CompTypes.Radar: {
-                this.compOption = getRadarOption()
+            case CompTypes.Pie: {
+                this.compOption = getPieOption()
                 break
             }
             case CompTypes.Scatter: {
@@ -54,6 +56,42 @@ export default class DropCard extends Component {
             }
             case CompTypes.Map: {
                 this.compOption = getMapOption()
+                break
+            }
+            case CompTypes.Radar: {
+                this.compOption = getRadarOption()
+                break
+            }
+            case CompTypes.Boxplot: {
+                this.compOption = getBoxplotOption()
+                break
+            }
+            case CompTypes.Heatmap: {
+                this.compOption = getHeatMap()
+                break
+            }
+            case CompTypes.Treemap: {
+                this.compOption = getTreeMap()
+                break
+            }
+            case CompTypes.Sunburst: {
+                this.compOption = getSunburstOption()
+                break
+            }
+            case CompTypes.Parallel: {
+                this.compOption = getParrallelOption()
+                break
+            }
+            case CompTypes.Funnel: {
+                this.compOption = getFunnelOption()
+                break
+            }
+            case CompTypes.Gauge: {
+                this.compOption = getGaugeOption()
+                break
+            }
+            case CompTypes.Calendar: {
+                this.compOption = getCalendarOption()
                 break
             }
             default: {
