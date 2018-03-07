@@ -17,8 +17,7 @@ const type = ItemTypes.DRAG;
 const confirm = Modal.confirm;
 const spec = {
     drop(props) {
-        // const allowedDropEffect = props.allowedDropEffect
-        props.dropComponent(props.compType);
+        props.dropComponent(props.compType)
         // return {
         //     compType: props.compType,
         //     allowedDropEffect
@@ -39,7 +38,7 @@ class DropContainer extends Component {
     getCompCollection() {
         return this.props.compCollection.map((eachComp, index) => {
             return <DropCard compType={eachComp.compType}
-                             key={eachComp.compType + index}
+                             key={eachComp.id}
                              index={index}
                              isAcive={this.props.focusIndex===index}
                              col={eachComp.col}

@@ -3,6 +3,7 @@
  * 默认的dropCard配置
  */
 const compState = {
+    id: '',
     compType: '',
     col: 12,
     height: 250,

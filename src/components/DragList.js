@@ -74,7 +74,6 @@ class DragList extends Component {
         return (
             <div className="drag-list">
                 <div className="drag-total">
-                    <h3>所展示组件均为ecahrt官方示例</h3>
                     <Tabs defaultActiveKey="drag-comp" size="small">
                         <TabPane tab="拖拽组件" key="drag-comp">
                             <Row>

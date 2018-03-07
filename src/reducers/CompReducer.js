@@ -4,6 +4,13 @@
 import appState from '../constants/appState';
 import compState from '../constants/compState'
 
+function guid() {
+    function S4() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    }
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
 export default(state=appState, action={}) => {
     switch(action.type) {
         case 'Drag': {
@@ -16,6 +23,7 @@ export default(state=appState, action={}) => {
             let compCollection = state.compCollection
             let newCompState = Object.assign({}, compState)
             newCompState.compType = state.compType
+            newCompState.id = guid()
             compCollection.push(newCompState)
             let focusIndex = compCollection.length - 1
             return {
@@ -73,7 +81,7 @@ export default(state=appState, action={}) => {
                 compCollection: []
             }
         }
-        case 'changeBgColor': {
+        case 'ChangeBgColor': {
             let compCollection = Object.assign([], state.compCollection)
             compCollection[state.focusIndex].bgColor = action.payload.bgColor
             return {

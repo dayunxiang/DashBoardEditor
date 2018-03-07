@@ -59,7 +59,7 @@ export function changeHeight(height) {
 export function changeBgColor(bgColor) {
     return dispatch => {
         return dispatch({
-            type: 'changeBgColor',
+            type: 'ChangeBgColor',
             payload: {
                 bgColor: bgColor
             }

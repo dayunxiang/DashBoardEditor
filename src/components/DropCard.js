@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Col, Icon } from 'antd'
 import echarts from 'echarts/lib/echarts'
+import CompTypes from '../constants/CompTypes'
 // 引入组件
 import  'echarts/lib/chart/bar' // 柱形图
 import 'echarts/lib/chart/pie' // 饼图
@@ -19,10 +20,10 @@ import 'echarts/lib/component/visualMap'
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-import CompTypes from '../constants/CompTypes'
-import { getLineOption, getBarOption, getPieOption, getCandlestickOption,
-    getRadarOption, getScatterOption, getMapOption, getBoxplotOption, getHeatMap,
-    getTreeMap, getSunburstOption, getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption } from '../options/CompOptions'
+import { getLineOption, getBarOption, getPieOption, getCandlestickOption, getRadarOption, 
+    getScatterOption, getMapOption, getBoxplotOption, getHeatMap,getTreeMap, getSunburstOption, 
+    getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption } 
+    from '../options/CompOptions'
 
 export default class DropCard extends Component {
     chart = null
@@ -50,16 +51,16 @@ export default class DropCard extends Component {
                 this.compOption = getPieOption()
                 break
             }
+            case CompTypes.Radar: {
+                this.compOption = getRadarOption()
+                break
+            }
             case CompTypes.Scatter: {
                 this.compOption = getScatterOption()
                 break
             }
             case CompTypes.Map: {
                 this.compOption = getMapOption()
-                break
-            }
-            case CompTypes.Radar: {
-                this.compOption = getRadarOption()
                 break
             }
             case CompTypes.Boxplot: {
@@ -101,8 +102,10 @@ export default class DropCard extends Component {
         this.chart.setOption(this.compOption)
     }
     componentDidUpdate() {
-        this.chart.setOption(this.compOption, true)
-        this.chart.resize()
+        if(this.compOption) {
+            this.chart.setOption(this.compOption, true)
+            this.chart.resize()
+        }
     }
     componentWillUnmount() {
         this.chart.dispose();
