@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import { changeCol, changeComp, changeHeight, changeBgColor, setCompCollection } from '../actions/CompAction'
 import CompTypes from '../constants/CompTypes'
 import { CompactPicker } from 'react-color'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { docco } from 'react-syntax-highlighter/styles/hljs'
 import file from '../tool/files'
@@ -17,7 +17,7 @@ import file from '../tool/files'
 const Option = Select.Option
 const FormItem = Form.Item
 const TabPane = Tabs.TabPane
-const ButtonGroup = Button.Group;
+const ButtonGroup = Button.Group
 
 const compList = Object.values(CompTypes)
 

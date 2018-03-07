@@ -3,4 +3,5 @@
  */
 export default {
     DRAG: 'Drag',
+    EXCHANGE: 'Exchange'
 }

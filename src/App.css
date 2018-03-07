@@ -32,12 +32,17 @@ body {
   z-index: 2;
   text-align: right; }
 
+.drag-panel .drop-container .container-tool-bar .container-tool-btn {
+  margin: 0 5px; }
+
+.drag-panel .drop-container .measure .ant-col-1:first-child .measure-block {
+  border-left: 1px solid #dadada; }
+
 .drag-panel .drop-container .measure .measure-block {
   height: 5px;
   margin-top: 5px;
   border-bottom: 1px solid #dadada;
-  border-right: 1px solid #dadada;
-  vert-align: bottom; }
+  border-right: 1px solid #dadada; }
 
 .drag-panel .drop-container .measure .measure-block.em-block {
   height: 10px;
@@ -47,6 +52,32 @@ body {
 .drag-panel .drop-container .container-comp-panel {
   height: calc(100vh - 105px);
   overflow: auto; }
+
+.drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container {
+  position: relative; }
+
+.drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container .drop-tips {
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 100%;
+  color: white;
+  background: #666;
+  opacity: 0.7;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  align-items: center; }
+
+.drag-panel .drop-container .container-comp-panel.is-full .drop-card-container {
+  display: none; }
+
+.drag-panel .drop-container .container-comp-panel.is-full .drop-card-container.is-active {
+  display: block; }
 
 .drag-panel .drop-container .container-comp-panel .container-tips {
   line-height: calc(100vh - 95px);
@@ -77,6 +108,12 @@ body {
   outline: none;
   border: 1px solid #0b97c4; }
 
+.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar {
+  height: 30px; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar .anticon {
+  opacity: 1; }
+
 .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar {
   position: absolute;
   top: 0;
@@ -86,6 +123,9 @@ body {
   z-index: 2;
   text-align: right;
   transition: all 0.2s ease; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .drop-tool-btn {
+  display: inline-block; }
 
 .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .anticon {
   opacity: 0;
@@ -99,12 +139,6 @@ body {
 .drag-panel .drop-container .container-comp-panel .drop-card .card-render {
   width: 100%;
   height: 100%; }
-
-.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar {
-  height: 30px; }
-
-.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar .anticon {
-  opacity: 1; }
 
 .drag-panel .drag-list {
   padding: 24px 12px;
@@ -127,8 +161,8 @@ body {
 .drag-panel .drag-list .drag-card {
   display: block;
   margin: 5px;
-  height: 50px;
-  line-height: 50px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
   background: #efefef; }
 

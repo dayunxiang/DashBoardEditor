@@ -107,3 +107,27 @@ export function setCompCollection(compCollection) {
         })
     }
 }
+
+export function setFull(isFull, index) {
+    return dispatch => {
+        return dispatch({
+            type: 'Full',
+            payload: {
+                isFull,
+                index
+            }
+        })
+    }
+}
+
+export function exchangeComp(preIndex, nextIndex) {
+    return dispatch => {
+        return dispatch({
+            type: 'Exhange',
+            payload: {
+                preIndex,
+                nextIndex
+            }
+        })
+    }
+}

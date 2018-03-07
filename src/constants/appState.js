@@ -5,6 +5,7 @@ const appState = {
     compType: '',
     compCollection: [],
     focusIndex: -1,
+    isFull: false
 }
 
 export default appState

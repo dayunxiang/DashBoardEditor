@@ -37,6 +37,7 @@ export default(state=appState, action={}) => {
             return {
                 ...state,
                 focusIndex: action.payload.index,
+                isFull: false
             }
         }
         case 'ChangeCol': {
@@ -71,7 +72,8 @@ export default(state=appState, action={}) => {
             return {
                 ...state,
                 focusIndex,
-                compCollection
+                compCollection,
+                isFull: false
             }
         }
         case 'EmptyComp': {
@@ -93,6 +95,33 @@ export default(state=appState, action={}) => {
             return {
                 ...state,
                 compCollection: action.payload.compCollection
+            }
+        }
+        case 'Full': {
+            return {
+                ...state,
+                focusIndex: action.payload.index,
+                isFull: action.payload.isFull
+            }
+        }
+        case 'Exhange': {
+            const preIndex = action.payload.preIndex
+            const nextIndex = action.payload.nextIndex
+            if(preIndex === nextIndex) {
+                return {
+                    ...state
+                }
+            } else {
+                let compCollection = Object.assign([], state.compCollection)
+                let preComp = compCollection[preIndex]
+                let nextComp = compCollection[nextIndex]
+                compCollection[preIndex] = nextComp
+                compCollection[nextIndex] = preComp
+                return {
+                    ...state,
+                    focusIndex: action.payload.nextIndex,
+                    compCollection
+                }
             }
         }
         default:

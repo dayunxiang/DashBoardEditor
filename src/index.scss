@@ -1,5 +1,10 @@
-.loading-app-panel {
-    width: 100vw;
-    height: 100vh;
+.loading-panel {
+    width: 30vw;
+    height: 40vh;
+    margin: 0 auto;
+    margin-top: 30vh;
     text-align: center;
+    .ant-spin {
+        margin-bottom: 30px;
+    }
 }

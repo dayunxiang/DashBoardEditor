@@ -1,3 +1,9 @@
-.error {
-  color: #9f3a38;
-}
+.loading-panel {
+  width: 30vw;
+  height: 40vh;
+  margin: 0 auto;
+  margin-top: 30vh;
+  text-align: center; }
+
+.loading-panel .ant-spin {
+  margin-bottom: 30px; }

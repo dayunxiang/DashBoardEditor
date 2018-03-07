@@ -7,8 +7,10 @@ import classnames from 'classnames'
 import { Col, Icon } from 'antd'
 import echarts from 'echarts/lib/echarts'
 import CompTypes from '../constants/CompTypes'
+import { DragSource, DropTarget } from 'react-dnd';
+import ItemTypes from '../constants/ItemTypes';
 // 引入组件
-import  'echarts/lib/chart/bar' // 柱形图
+import 'echarts/lib/chart/bar' // 柱形图
 import 'echarts/lib/chart/pie' // 饼图
 import 'echarts/lib/chart/radar' // 雷达图
 import 'echarts/lib/chart/scatter' // 点图
@@ -20,17 +22,36 @@ import 'echarts/lib/component/visualMap'
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-import { getLineOption, getBarOption, getPieOption, getCandlestickOption, getRadarOption, 
-    getScatterOption, getMapOption, getBoxplotOption, getHeatMap,getTreeMap, getSunburstOption, 
-    getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption } 
-    from '../options/CompOptions'
+import {
+    getLineOption, getBarOption, getPieOption, getRadarOption,
+    getScatterOption, getMapOption, getBoxplotOption, getHeatMap, getTreeMap, getSunburstOption,
+    getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption
+} from '../options/CompOptions'
 
-export default class DropCard extends Component {
+const type = ItemTypes.EXCHANGE;
+const dragSpec = {
+    beginDrag(props) {
+        return {
+            index: props.index,
+        }
+    },
+}
+const dropSpec = {
+    drop(props) {
+        props.exchangeComp(props.index)
+    }
+}
+
+class DropCard extends Component {
     chart = null
     static propTypes = {
+        connectDropSource: PropTypes.func.isRequired,
+        connectDragSource: PropTypes.func.isRequired,
+        exchangeComp: PropTypes.func.isRequired,
         onFocus: PropTypes.func.isRequired,
         index: PropTypes.number.isRequired,
         isAcive: PropTypes.bool.isRequired,
+        isFull: PropTypes.bool,
         col: PropTypes.number.isRequired,
         height: PropTypes.number.isRequried
     }
@@ -38,7 +59,7 @@ export default class DropCard extends Component {
         const id = "card-render-" + this.props.index
         this.chart = echarts.init(document.getElementById(id))
         this.compOption = null
-        switch(this.props.compType) {
+        switch (this.props.compType) {
             case CompTypes.Line: {
                 this.compOption = getLineOption()
                 break
@@ -102,8 +123,9 @@ export default class DropCard extends Component {
         this.chart.setOption(this.compOption)
     }
     componentDidUpdate() {
-        if(this.compOption) {
-            this.chart.setOption(this.compOption, true)
+        if (this.compOption && this.props.isAcive) {
+            this.chart.setOption(this.compOption)
+            // this.chart.setOption(this.compOption, true)
             this.chart.resize()
         }
     }
@@ -114,7 +136,8 @@ export default class DropCard extends Component {
     onFocus = () => {
         this.props.onFocus(this.props.index)
     }
-    onBlur = () => {
+    isFull = (isFull) => {
+        this.props.onFull(isFull, this.props.index)
     }
     onClose = () => {
         this.props.onClose(this.props.index)
@@ -126,21 +149,53 @@ export default class DropCard extends Component {
     }
     render() {
         const props = this.props
-        return (
-            <Col span={props.col}>
-                <div tabIndex={props.index}
-                     className={classnames("drop-card", {"is-active": this.props.isAcive})}
-                     style={{height: props.height, backgroundColor: props.bgColor}}
-                     onFocus={ this.onFocus }
-                     onBlur={ this.onBlur }>
-                    <div className="drop-tool-bar">
-                        <div className="close" 
-                             onClick={ this.onClose }>
-                            <Icon type="close"/>
+        // const { connectDragSource, connectDropTarget } = props;
+        return props.connectDropSource(props.connectDragSource(
+            <div className="dnd-container">
+                <Col span={props.isFull === true ? 24 : props.col}
+                    className={classnames("drop-card-container", { "is-active": props.isAcive })}>
+                    {props.isOver && <div className="drop-tips">松开即可交换组件的位置</div>}
+                    <div tabIndex={props.index}
+                        className={classnames("drop-card", { "is-active": props.isAcive }, { "is-card-full": props.isFull })}
+                        style={{ height: props.isFull ? "calc(100vh - 120px)" : props.height, backgroundColor: props.bgColor }}
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}>
+                        <div className="drop-tool-bar">
+                            {
+                                !this.props.isFull ?
+                                    (
+                                        <div className="drop-tool-btn"
+                                            onClick={() => this.isFull(true)}>
+                                            <Icon type="arrows-alt" />
+                                        </div>
+                                    ) :
+                                    (
+                                        <div className="drop-tool-btn"
+                                            onClick={() => this.isFull(false)}>
+                                            <Icon type="shrink" />
+                                        </div>
+                                    )
+                            }
+
+                            <div className="drop-tool-btn"
+                                onClick={this.onClose}>
+                                <Icon type="close" />
+                            </div>
                         </div>
+                        <div id={"card-render-" + this.props.index} className="card-render"></div>
                     </div>
-                    <div id={"card-render-" + this.props.index} className="card-render"></div>
-                </div>
-        </Col>)
+                </Col>
+            </div>
+        ))
     }
 }
+
+// export default DropCard
+
+export default DropTarget(type, dropSpec, (connect, monitor) => ({
+    connectDropSource: connect.dropTarget(),
+    isOver: monitor.isOver(),
+}))(DragSource(type, dragSpec, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+}))(DropCard))
+
