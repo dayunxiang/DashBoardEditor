@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
-// import {fetchContacts, deleteContact} from '../actions/drag-action';
-import {Row, Col} from 'antd';
-import DragList from '../components/DragList';
-import DropContainer from '../components/DropContainer';
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import React, {Component} from 'react'
+// import {fetchContacts, deleteContact} from '../actions/drag-action'
+import {Row, Col} from 'antd'
+import DragList from '../components/DragList'
+import DropContainer from '../components/DropContainer'
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import './drag.css'
+
 
 class ContactListPage extends Component {
     render() {
@@ -25,4 +27,4 @@ class ContactListPage extends Component {
     }
 }
 
-export default ContactListPage;
+export default ContactListPage

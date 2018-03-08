@@ -123,7 +123,7 @@ class DropContainer extends Component {
 
         let backgroundColor = '#fff';
         if (isActive) {
-            backgroundColor = '#e1e1e1'
+            backgroundColor = '#f9f9f9'
         }
 
         return connectDropTarget(

@@ -1,0 +1,146 @@
+$border-color: #CCCCCC;
+.big-table {
+  position: relative;
+  overflow: auto;
+  zoom: 1;
+  font-size: 0;
+  user-select: none;
+  .fir-col {
+    display: inline-block;
+    background: #f1f1f1;
+    border-left: 1px solid $border-color;
+    border-top: 1px solid $border-color;
+    &.fixed {
+      z-index: 3;
+      box-shadow: 1px 1px 10px $border-color;
+    }
+  }
+  .table-wrapper {
+    position: relative;
+    overflow: auto;
+    border: 1px solid $border-color;
+    display: inline-block;
+    font-size: 14px;
+    &.head-wrapper {
+      overflow: hidden;
+      border-top: none;
+      border-bottom: none;
+      background: #f1f1f1;
+      z-index: 2;
+    }
+    &.row-wrapper {
+      &.top-fixed {
+        box-shadow: 1px 1px 10px $border-color;
+      }
+    }
+    &.col-wrapper {
+      border: none;
+      border-top: 1px solid $border-color;
+      border-left: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      &.left-fixed {
+        box-shadow: 1px 1px 10px $border-color;
+      }
+      .hs-th {
+        box-sizing: border-box;
+        height: 25px;
+        border-bottom: 1px solid $border-color;
+        padding: 1px 5px;
+        overflow: hidden;
+        outline-width: 0;
+        white-space: pre-line;
+      }
+    }
+    &.body-wrapper {
+      background: #fff;
+    }
+  }
+  .table-inner {
+    position: relative;
+  }
+  .hs-table {
+    position: absolute;
+    border-collapse: collapse;
+    overflow: scroll;
+    table-layout: fixed; /*宽度由col决定的关键*/
+    .hs-row-head {
+      .hs-row {
+        overflow: auto;
+        .hs-th {
+          height: 25px;
+          padding: 1px 5px;
+          border-top: 1px solid $border-color;
+          border-left: 1px solid $border-color;
+          &.is-active {
+            background: #DCDCDC;
+          }
+        }
+        .hs-th:first-child {
+          border-left: none;
+        }
+      }
+      //width: 100%;
+      //table-layout: fixed;
+    }
+    .hs-col-head {
+      .hs-th {
+        width: 100px;
+        padding: 1px 5px;
+        &.is-active {
+          background: #DCDCDC;
+        }
+      }
+    }
+    .hs-body {
+      .hs-tr {
+        .hs-td {
+          box-sizing: border-box;
+          height: 25px;
+          border-right: 1px solid $border-color;
+          border-bottom: 1px solid $border-color;
+          padding: 1px 5px;
+          overflow: hidden;
+          outline-width: 0;
+          white-space: pre-line;
+          &:last-child {
+            border-right: none;
+          }
+          &.is-active {
+            background: #E8F0FF;
+          }
+        }
+      }
+    }
+  }
+  .selected-area {
+    position: absolute;
+    z-index: 99;
+    .selected-border  {
+      position: absolute
+    }
+    $boder-right: #2593FC;
+    .selected-top-area {
+      height: 1px;
+      // background: red;
+      background: $boder-right;
+    }
+    .selected-right-area {
+      top: 1px;
+      width: 1px;
+      // background: yellow;
+      background: $boder-right;
+    }
+    .selected-bottom-area {
+      left: 1px;
+      height: 1px;
+      // background: green;
+      background: $boder-right;
+    }
+    .selected-left-area {
+      top: 1px;
+      width: 1px;
+      // background: orange;
+      background: $boder-right;
+    }
+  }
+}

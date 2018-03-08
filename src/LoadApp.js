@@ -10,7 +10,7 @@ const AppComp = Loadable({
         <Spin size="large"></Spin>
         <Alert
           message="请耐心等待..."
-          description="工程托管于github pages，无VPN时，不同地区访问速度不一致，可能需要几秒到几十秒的加载时间"
+          description="工程托管于github pages，不同地区访问速度不一致，可能需要几秒到几十秒的加载时间"
           type="info"
         />
       </div>

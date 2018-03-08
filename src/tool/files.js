@@ -1,7 +1,4 @@
 /**
- * Created by edeity on 2018/3/6.
- */
-/**
  * Created by edeity on 15/11/15.
  */
 ;(function(dom, win){
