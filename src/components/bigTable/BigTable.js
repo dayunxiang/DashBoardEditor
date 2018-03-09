@@ -7,6 +7,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import './BigTable.css'
 
+const MOUSE_TYPE = {
+    LEFT_DOWN: 0,
+    RIGHT_DOWN: 2
+}
+
 const defaultConfig = {
     // 相应数据
     data: [],
@@ -47,7 +52,8 @@ class BigTable extends Component {
         cacheRow: PropTypes.number, // 每次加载的行
         cacheCol: PropTypes.number, // 每次加载的列
         loadRow: PropTypes.number, // 每次加载的行
-        loadCol: PropTypes.number // 每次加载的列
+        loadCol: PropTypes.number, // 每次加载的列
+        hasContentMenu: PropTypes.bool // 是否拥有右键菜单
     }
 
     constructor(props) {
@@ -67,6 +73,8 @@ class BigTable extends Component {
         this.loadCol = props.loadCol || defaultConfig.loadCol;
         // 记录拖拽事件
         this.isRecordActive = false
+        this.isRecordRowActive = false
+        this.isRecordColActive = false
 
         // 获取首次渲染的数据
         let initPage = this.getRenderPage(this.getViewPage(0, 0));
@@ -88,45 +96,171 @@ class BigTable extends Component {
             activeStartRow: -1,
             activeStartCol: -1,
             activeEndRow: -1,
-            activeEndCol: -1
+            activeEndCol: -1,
+            fRow: -1,
+            fCol: -1,
+            // 右键菜单
+            activeContentMenu: false,
+            menuX: -1,
+            menuY: -1
         };
     }
 
-    startActiveRecord = () => {
-        this.isRecordActive = true
+    componentDidMount() {
+        document.addEventListener('mouseup', ()=>{
+            if(this.isRecordActive === true) {
+                this.isRecordActive = false
+                this.isRecordRowActive = false
+                this.isRecordColActive = false
+            }
+        })
+        // if(this.props.hasContentMenu === true) {
+        //     this.refs.bodyWrapper.addEventListener('contextmenu', (e)=>{
+        //         e.preventDefault();
+        //         return false;
+        //     })
+        // }
     }
+
+    clickFir = () => {
+        this.setState({
+            scrollLeft: 0,
+            scrollTop: 0
+        })
+    }
+
+    startFirDown = (e) => {
+        this.isRecordRowActive = true
+        this.isRecordColActive = true
+        this.setState({
+            activeStartRow: 0,
+            activeStartCol: 0,
+            activeEndRow: 0,
+            activeEndCol: 0,
+            fRow: 0,
+            fCol: 0
+        })
+        e.preventDefault()
+        return false
+    }
+
+    endFirDown = () => {
+        this.isRecordRowActive = false
+        this.isRecordColActive = false
+    }
+
+    startActiveAllRow = (row, e) => {
+        this.isRecordRowActive = true
+        this.setState({
+            activeStartRow: row,
+            activeStartCol: 0,
+            activeEndRow: row,
+            activeEndCol: this.allCol - 1,
+            fRow: row,
+            fCol: 0
+        })
+        e.preventDefault()
+        return false
+    }
+    
+    enterActiveAllRow = (eRow) => {
+        if(this.isRecordRowActive === true) {
+            let fRow = this.state.fRow
+            let activeStartRow = this.state.activeStartRow
+            if(fRow > eRow) {
+                let tempRow = eRow
+                eRow = fRow
+                activeStartRow = tempRow
+            }
+            this.setState({
+                activeStartRow: activeStartRow,
+                activeEndRow: eRow,
+            })
+        }
+    }
+
+    stopActiveAllRow = (eRow, e) => {
+        this.isRecordRowActive = false
+    }
+
+    startActiveAllCol = (col, e) => {
+        this.isRecordColActive = true
+        this.setState({
+            activeStartRow: 0,
+            activeStartCol: col,
+            activeEndRow: this.allRow - 1,
+            activeEndCol: col,
+            fRow: 0,
+            fCol: col,
+        })
+        e.preventDefault()
+        return false
+    }
+    
+    enterActiveAllCol = (eCol) => {
+        if(this.isRecordColActive === true) {
+            let fCol = this.state.fCol
+            let activeStartCol = this.state.activeStartCol
+            if(fCol > eCol) {
+                let tempRow = eCol
+                eCol = fCol
+                activeStartCol = tempRow
+            }
+            this.setState({
+                activeStartCol: activeStartCol,
+                activeEndCol: eCol,
+            })
+        }
+    }
+
+    stopActiveAllCol = () => {
+        this.isRecordColActive = false
+    }
+
+    startActiveRecord = (e) => {
+        if(e.button === MOUSE_TYPE.LEFT_DOWN) {
+            this.isRecordActive = true
+            e.preventDefault()
+            return false
+        }
+    }
+
     stopActiveRecord = () => {
         this.isRecordActive = false
     }
+
     activeStartPos = (sRow, sCol) => {
-        this.setState({
-            activeStartRow: sRow,
-            activeStartCol: sCol,
-            activeEndRow: sRow,
-            activeEndCol: sCol
-        })
+        if(this.isRecordActive === true) {
+            this.setState({
+                activeStartRow: sRow,
+                activeStartCol: sCol,
+                activeEndRow: sRow,
+                activeEndCol: sCol,
+                fRow: sRow,
+                fCol: sCol
+            })
+        }
     }
+
     activeEnterPos = (eRow, eCol) => {
         if(this.isRecordActive === true) {
+            let fRow = this.state.fRow
+            let fCol = this.state.fCol
             let sRow = this.state.activeStartRow
             let sCol = this.state.activeStartCol
-            if(sRow > eRow) {
-                let tempExchangeRow = sRow
+            if(fRow > eRow) {
                 sRow = eRow
-                eRow = tempExchangeRow
+                eRow = fRow
             }
-            if(sCol > eCol) {
-                let tempExchangeCol = sCol
+            if(fCol > eCol) {
                 sCol = eCol
-                eCol = tempExchangeCol
+                eCol = fCol
             }
-            eRow = eRow > this.state.activeEndRow ? eRow : this.state.activeEndRow
-            eCol = eCol > this.state.activeEndCol ? eCol : this.state.activeEndCol
             this.setState({
                 activeStartRow: sRow,
                 activeStartCol: sCol,
                 activeEndRow: eRow,
-                activeEndCol: eCol
+                activeEndCol: eCol,
             })
         }
     }
@@ -139,7 +273,7 @@ class BigTable extends Component {
         }
         return colGroup;
     };
-
+    
     getRowHead = () => {
         let sCol = this.state.startCol;
         let eCol = this.state.endCol;
@@ -151,7 +285,10 @@ class BigTable extends Component {
                 <th className={classnames("hs-th", { "is-active": isActive })}
                     key={id}
                     id={id}
-                    style={{ width: this.cellWidth }}>
+                    style={{width: this.cellWidth}}
+                    onMouseDown={(e)=>this.startActiveAllCol(i, e)}
+                    onMouseEnter={(e)=>this.enterActiveAllCol(i)}
+                    onMouseUp={(e)=>this.stopActiveAllCol()}>
                     <div><span>{this.getHeadText(i)}</span></div>
                 </th>
             )
@@ -168,7 +305,10 @@ class BigTable extends Component {
             let id = `tr_${i}`
             let isActive = i >= this.state.activeStartRow && i <= this.state.activeEndRow
             ths.push(<tr key={id} id={id}>
-                <th className={classnames("hs-th", { "is-active": isActive })}>
+                <th className={classnames("hs-th", { "is-active": isActive })}
+                    onMouseDown={(e)=>this.startActiveAllRow(i, e)}
+                    onMouseEnter={(e)=>this.enterActiveAllRow(i)}
+                    onMouseUp={(e)=>this.stopActiveAllRow()}>
                     <div><span>{i}</span></div>
                 </th>
             </tr>)
@@ -207,14 +347,26 @@ class BigTable extends Component {
                 <td key={id}
                     id={id}
                     className={classnames("hs-td", { "is-active": isActive })}
-                    onMouseDown={() => {this.startActiveRecord(); this.activeStartPos(currRow, j)}}
+                    onMouseDown={(e) => {this.startActiveRecord(e); this.activeStartPos(currRow, j)}}
                     onMouseEnter={() => {this.activeEnterPos(currRow, j)}}
                     onMouseUp={() => {this.stopActiveRecord()}}>
                     {currData.data ? currData.data : currData}
                 </td>)
         }
         return tds;
-    };
+    }
+
+    toggleContentMenu = (e) => {
+        if(this.props.hasContentMenu && e.button===MOUSE_TYPE.RIGHT_DOWN) {
+            this.setState({
+                activeContentMenu: !this.state.activeContentMenu,
+                menuX: e.target.offsetLeft,
+                menuY: e.target.offsetHeight
+            })
+            e.preventDefault()
+            return false
+        }
+    }
 
     // 是否存在于缓存页中
     inPageCache = (currPage) => {
@@ -285,8 +437,6 @@ class BigTable extends Component {
         let top = target.scrollTop;
         let left = target.scrollLeft;
 
-        // this.refs.headWrapper.left = top;
-
         // 同步滚动的位置
         this.setState({
             scrollLeft: left,
@@ -332,21 +482,26 @@ class BigTable extends Component {
         let sCol = this.state.startCol
         let eRow = this.state.endRow
         let eCol = this.state.endCol
-        const startActiveLeft = this.state.activeStartCol * this.cellWidth - 1
-        const startActiveTop = this.state.activeStartRow * this.cellHeight - 1
+        const startActiveLeft = this.state.activeStartCol * this.cellWidth
+        const startActiveTop = this.state.activeStartRow * this.cellHeight
         const activeLength = (this.state.activeEndCol - this.state.activeStartCol + 1) * this.cellWidth  + 1
-        const activeHeight = (this.state.activeEndRow - this.state.activeStartRow + 1) * this.cellHeight + 1
+        const activeHeight = (this.state.activeEndRow - this.state.activeStartRow + 1) * this.cellHeight
         return (
             <div className="big-table">
                 <div>
                     {/* 第一个单元格 */}
                     <div className={(this.state.isLeftFixed || this.state.isTopFixed) ? "fir-col fixed" : "fir-col"}
-                        style={{ width: colWidth, height: this.cellHeight }}></div>
+                        style={{ width: colWidth, height: this.cellHeight }}
+                        onClick={()=>{this.clickFir()}}
+                        onMouseDown={(e)=> {this.startFirDown(e)}}
+                        onMouseUp={()=> {this.endFirDown()}}></div>
                     {/* 行表头 */}
                     <div className={'table-wrapper head-wrapper row-wrapper ' + (this.state.isTopFixed ? 'top-fixed' : '')}
                         style={{ width: this.width, height: this.cellHeight }}>
-                        <div className="table-inner" style={{ width: this.state.innerWidth, left: sCol * this.cellWidth }}>
-                            <table className="hs-table" style={{ top: 0, left: - this.state.scrollLeft }}>
+                        <div className="table-inner" 
+                            style={{ width: this.state.innerWidth, left: sCol * this.cellWidth }}>
+                            <table className="hs-table" 
+                                style={{ top: 0, left: - this.state.scrollLeft }}>
                                 <thead className="hs-row-head" style={{ width: this.width, height: this.cellHeight }}>
                                     <tr className="hs-row" style={{ width: this.state.innerWidth }}>
                                         {this.getRowHead()}
@@ -371,7 +526,9 @@ class BigTable extends Component {
                     {/* 表数据 */}
                     <div className="table-wrapper body-wrapper"
                         style={{ width: this.width, height: this.height }}
-                        onScroll={this.onScroll}>
+                        onContextMenu={(e)=>{this.toggleContentMenu(e)}}
+                        onScroll={this.onScroll}
+                        ref="bodyWrapper">
                         <div className="table-inner"
                             style={{ width: this.state.innerWidth, height: this.state.innerHeight }}>
                             <table className="hs-table"
@@ -384,6 +541,14 @@ class BigTable extends Component {
                                 </tbody>
                             </table>
                         </div>
+                        {
+                            this.state.activeContentMenu && (
+                                <div className="content-menu-bar"
+                                    style={{top: this.state.menuX, left: this.state.menuY}}>
+                                    <div className="content-menu-btn">冻结单元格</div>
+                                </div>
+                            )
+                        }
                         <div className="selected-area" style={{ left: startActiveLeft, top: startActiveTop }}>
                             <div className="selected-border selected-top-area" 
                                 style={{ width: activeLength }}></div>

@@ -3,8 +3,7 @@
   position: relative;
   overflow: auto;
   zoom: 1;
-  font-size: 0;
-  user-select: none; }
+  font-size: 0; }
 
 .big-table .fir-col {
   display: inline-block;
@@ -102,6 +101,9 @@
 .big-table .hs-table .hs-body .hs-tr .hs-td.is-active {
   background: #E8F0FF; }
 
+.big-table .content-menu-bar {
+  position: absolute; }
+
 .big-table .selected-area {
   position: absolute;
   z-index: 99; }
@@ -119,7 +121,6 @@
   background: #2593FC; }
 
 .big-table .selected-area .selected-bottom-area {
-  left: 1px;
   height: 1px;
   background: #2593FC; }
 

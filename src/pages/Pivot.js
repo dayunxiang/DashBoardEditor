@@ -13,7 +13,7 @@ export default class Pivot extends Component {
                 <Tabs defaultActiveKey="pure-data">
                     <TabPane tab="原始数据" key="pure-data">
                     <div className="pure-table-container">
-                        <BigTable data={pivotData}/>
+                        <BigTable data={pivotData}  hasContentMenu={true}/>
                     </div>
                     </TabPane>
                     <TabPane tab="透视表" key="pivot-data">

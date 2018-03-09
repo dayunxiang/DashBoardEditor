@@ -4,7 +4,7 @@ $border-color: #CCCCCC;
   overflow: auto;
   zoom: 1;
   font-size: 0;
-  user-select: none;
+  // user-select: none;
   .fir-col {
     display: inline-block;
     background: #f1f1f1;
@@ -112,6 +112,9 @@ $border-color: #CCCCCC;
       }
     }
   }
+  .content-menu-bar {
+    position: absolute;
+  }
   .selected-area {
     position: absolute;
     z-index: 99;
@@ -131,7 +134,6 @@ $border-color: #CCCCCC;
       background: $boder-right;
     }
     .selected-bottom-area {
-      left: 1px;
       height: 1px;
       // background: green;
       background: $boder-right;
