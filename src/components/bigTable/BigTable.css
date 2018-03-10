@@ -1,9 +1,12 @@
 @charset "UTF-8";
 .big-table {
   position: relative;
+  display: inline-block;
   overflow: auto;
   zoom: 1;
-  font-size: 0; }
+  font-size: 0;
+  user-select: none;
+  cursor: cell; }
 
 .big-table .fir-col {
   display: inline-block;
@@ -64,7 +67,8 @@
   /*宽度由col决定的关键*/ }
 
 .big-table .hs-table .hs-row-head .hs-row {
-  overflow: auto; }
+  overflow: auto;
+  cursor: s-resize; }
 
 .big-table .hs-table .hs-row-head .hs-row .hs-th {
   height: 25px;
@@ -77,6 +81,9 @@
 
 .big-table .hs-table .hs-row-head .hs-row .hs-th:first-child {
   border-left: none; }
+
+.big-table .hs-table .hs-col-head {
+  cursor: e-resize; }
 
 .big-table .hs-table .hs-col-head .hs-th {
   width: 100px;
@@ -102,7 +109,44 @@
   background: #E8F0FF; }
 
 .big-table .content-menu-bar {
-  position: absolute; }
+  position: absolute;
+  width: 160px;
+  padding: 4px 0;
+  border-top: 1px solid #B6B6B7;
+  border-right: 1px solid #A3A4A5;
+  border-bottom: 1px solid #BEBEBE;
+  border-left: 1px solid #C9CACA;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #aaa;
+  background: #F0F0F0;
+  cursor: default;
+  font-size: 14px;
+  z-index: 100; }
+
+.big-table .content-menu-bar .content-menu-btn {
+  display: block;
+  padding: 2px 15px;
+  color: black;
+  text-decoration: none;
+  transition: none; }
+
+.big-table .content-menu-bar .content-menu-btn:hover {
+  background: #3E93F9;
+  color: white; }
+
+.big-table .content-menu-bar .content-menu-btn-group {
+  margin: 4px 0;
+  padding-top: 4px;
+  border-top: 2px solid #D8DDDF; }
+
+.big-table .content-menu-bar .content-menu-btn-group:first-child {
+  margin: 0;
+  padding: 0;
+  border-top: none; }
+
+.big-table .content-menu-bar .content-menu-btn-group:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0; }
 
 .big-table .selected-area {
   position: absolute;

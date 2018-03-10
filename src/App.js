@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import DragPage from './pages/DragPage';
 import Pivot from './pages/Pivot';
-import {Row, Col} from 'antd';
+// import {Row, Col} from 'antd';
 import './App.css';
 
 class App extends Component {

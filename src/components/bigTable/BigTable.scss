@@ -1,10 +1,12 @@
 $border-color: #CCCCCC;
 .big-table {
   position: relative;
+  display: inline-block;
   overflow: auto;
   zoom: 1;
   font-size: 0;
-  // user-select: none;
+  user-select: none;
+  cursor: cell;
   .fir-col {
     display: inline-block;
     background: #f1f1f1;
@@ -66,6 +68,7 @@ $border-color: #CCCCCC;
     .hs-row-head {
       .hs-row {
         overflow: auto;
+        cursor: s-resize;
         .hs-th {
           height: 25px;
           padding: 1px 5px;
@@ -83,6 +86,7 @@ $border-color: #CCCCCC;
       //table-layout: fixed;
     }
     .hs-col-head {
+      cursor: e-resize;
       .hs-th {
         width: 100px;
         padding: 1px 5px;
@@ -114,6 +118,43 @@ $border-color: #CCCCCC;
   }
   .content-menu-bar {
     position: absolute;
+    width: 160px;
+    padding: 4px 0;
+    border-top: 1px solid #B6B6B7;
+    border-right: 1px solid #A3A4A5;
+    border-bottom: 1px solid #BEBEBE;
+    border-left: 1px solid #C9CACA;
+    border-radius: 5px;
+    box-shadow:0px 0px 10px #aaa;
+    background: #F0F0F0;
+    cursor: default;;
+    font-size: 14px;
+    z-index: 100;
+    .content-menu-btn {
+      display: block;
+      padding: 2px 15px;
+      color: black;
+      text-decoration: none;
+      transition: none;
+      &:hover {
+        background: #3E93F9;
+        color: white;
+      }
+    }
+    .content-menu-btn-group {
+      margin: 4px 0;
+      padding-top: 4px;
+      border-top: 2px solid #D8DDDF;
+      &:first-child {
+        margin: 0;
+        padding: 0;
+        border-top: none;
+      }
+      &:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
   }
   .selected-area {
     position: absolute;
