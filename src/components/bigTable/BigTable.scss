@@ -112,6 +112,18 @@ $border-color: #CCCCCC;
           &.is-active {
             background: #E8F0FF;
           }
+          &.is-edit {
+            padding: 0;
+          }
+          .hs-td-textarea {
+            display: block;
+            width: 100%;
+            height: 24px;
+            padding: 1px 5px;
+            border: none;
+            outline: none;
+            resize: none;
+          }
         }
       }
     }

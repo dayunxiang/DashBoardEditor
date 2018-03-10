@@ -108,6 +108,18 @@
 .big-table .hs-table .hs-body .hs-tr .hs-td.is-active {
   background: #E8F0FF; }
 
+.big-table .hs-table .hs-body .hs-tr .hs-td.is-edit {
+  padding: 0; }
+
+.big-table .hs-table .hs-body .hs-tr .hs-td .hs-td-textarea {
+  display: block;
+  width: 100%;
+  height: 24px;
+  padding: 1px 5px;
+  border: none;
+  outline: none;
+  resize: none; }
+
 .big-table .content-menu-bar {
   position: absolute;
   width: 160px;

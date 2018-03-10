@@ -104,7 +104,10 @@ class BigTable extends Component {
             // 右键菜单
             activeContentMenu: false,
             menuX: -1,
-            menuY: -1
+            menuY: -1,
+            // 正在编辑项
+            eidtRow: -1,
+            editCol: -1
         };
     }
 
@@ -117,6 +120,7 @@ class BigTable extends Component {
             }
         })
         document.addEventListener('copy', this.copy)
+        document.addEventListener('paste', this.paste)
     }
 
     clickFir = () => {
@@ -124,6 +128,10 @@ class BigTable extends Component {
             scrollLeft: 0,
             scrollTop: 0
         })
+        // 滑动会原点
+        let bodyWrapper = this.refs.bodyWrapper
+        bodyWrapper.scrollLeft = 0
+        bodyWrapper.scrollTop = 0
     }
 
     startFirDown = (e) => {
@@ -223,9 +231,10 @@ class BigTable extends Component {
     activeStartPos = (sRow, sCol, e) => {
         if (e.button === MOUSE_TYPE.LEFT_DOWN ||
             // 右键点击，假如落在已选择范围内，则不需充值选择效果
-            (e.button === MOUSE_TYPE.RIGHT_DOWN && (sRow < this.state.activeStartRow
+            (e.button === MOUSE_TYPE.RIGHT_DOWN && 
+                (sRow < this.state.activeStartRow
                 || sRow > this.state.activeEndRow
-                || sCol < this.state.activeStartRow
+                || sCol < this.state.activeStartCol
                 || sCol > this.state.activeEndCol))) {
             this.isRecordActive = true
             this.setState({
@@ -342,15 +351,30 @@ class BigTable extends Component {
             let currData = this.data[currRow][j]
             let isActive = j >= this.state.activeStartCol && j <= this.state.activeEndCol
                 && currRow >= this.state.activeStartRow && currRow <= this.state.activeEndRow
-            tds.push(
-                <td key={id}
-                    id={id}
-                    className={classnames("hs-td", { "is-active": isActive })}
-                    onMouseDown={(e) => { this.activeStartPos(currRow, j, e) }}
-                    onMouseEnter={() => { this.activeEnterPos(currRow, j) }}
-                    onMouseUp={() => { this.stopActiveRecord() }}>
-                    {currData.data ? currData.data : currData}
-                </td>)
+            let isEditable = (currRow === this.state.eidtRow && j ===  this.state.editCol)
+            let renderData = currData.data ? currData.data : currData
+            if(isEditable) {
+                tds.push(
+                    <td key={id}
+                        className={classnames("hs-td", { "is-active": isActive }, "is-edit")} >
+                        <textarea className="hs-td-textarea" 
+                            onBlur={this.diableEditCell}
+                            onChange={e=>this.changeData(currRow, j, e.target.value)}
+                            defaultValue={renderData} autoFocus></textarea>
+                    </td>
+                )
+            } else {
+                tds.push(
+                    <td key={id}
+                        id={id}
+                        className={classnames("hs-td", { "is-active": isActive })}
+                        onDoubleClick={(e)=>{ this.activeEditCell(currRow, j) }}
+                        onMouseDown={(e) => { this.activeStartPos(currRow, j, e) }}
+                        onMouseEnter={() => { this.activeEnterPos(currRow, j) }}
+                        onMouseUp={() => { this.stopActiveRecord() }}>
+                        {renderData}
+                    </td>)
+            }
         }
         return tds;
     }
@@ -559,22 +583,61 @@ class BigTable extends Component {
         let eCol = this.state.activeEndCol
         let allData = this.data
         let copyData = ""
-        for (let i = sRow; i < eRow; i++) {
-            for (let j = sCol; j < eCol; j++) {
+        for (let i = sRow; i <= eRow; i++) {
+            for (let j = sCol; j <= eCol; j++) {
                 let tempData = allData[i][j]
-                if(j < eCol - 1) {
-                    copyData += tempData + "\t"
+                copyData += tempData
+                if(j !== eCol) {
+                    copyData += "\t"
                 }
             }
-            if(i < eRow - 1) {
+            if(i !== eRow) {
                 copyData += "\n"
             }
         }
         e.clipboardData.setData('text/plain', copyData)
+        e.preventDefault()
+        return false
     }
 
-    paste = () => {
+    paste = (e) => {
+        let copyData = e.clipboardData.getData('text/plain')
+        let rowData = copyData.split('\n')
+        let pasteRowData = new Array(rowData.length)
+        rowData.forEach((eachRowData, index)=> {
+            pasteRowData[index] = []
+            pasteRowData[index] = eachRowData.split('\t')
+        })
+        let sRow = this.state.activeStartRow
+        let sCol = this.state.activeStartCol
+        for(let i=0, rowLen=pasteRowData.length; i<rowLen; i++) {
+            for(let j=0, colLen=pasteRowData[i].length; j<colLen; j++) {
+                this.data[i + sRow][j + sCol] = pasteRowData[i][j]
+            }
+        }
+        this.renderPage(true)
+        this.setState({
+            activeEndRow: sRow + pasteRowData.length - 1,
+            activeEndCol: sCol + pasteRowData[0].length - 1
+        })
+    }
 
+    diableEditCell = () => {
+        this.setState({
+            eidtRow: -1,
+            editCol: -1
+        })
+    }
+
+    activeEditCell = (row, col) => {
+        this.setState({
+            eidtRow: row,
+            editCol: col
+        })
+    }
+
+    changeData = (row, col, value) => {
+        this.data[row][col] = value
     }
 
     render() {
@@ -589,7 +652,7 @@ class BigTable extends Component {
         return (
             <div className="big-table"
                 ref="bigTable"
-                onClick={(e) => { this.hideContentMenu(e) }}>
+                onMouseDown={(e) => { this.hideContentMenu(e) }}>
                 <div className="big-table-row">
                     {/* 第一个单元格 */}
                     <div className={(this.state.isLeftFixed || this.state.isTopFixed) ? "fir-col fixed" : "fir-col"}
@@ -665,12 +728,12 @@ class BigTable extends Component {
                             top: this.state.menuY,
                             left: this.state.menuX
                         }}>
-                        <div className="content-menu-btn-group">
+                        {/* <div className="content-menu-btn-group">
                             <a className="content-menu-btn"
                                 onClick={e => this.copy(e)}>复制</a>
                             <a className="content-menu-btn"
                                 onClick={e => this.paste()}>粘贴</a>
-                        </div>
+                        </div> */}
                         {/* <div className="content-menu-btn-group">
                             <a className="content-menu-btn">冻结行</a>
                             <a className="content-menu-btn">冻结列</a>
