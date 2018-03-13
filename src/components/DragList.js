@@ -143,7 +143,7 @@ class DragList extends Component {
                         focusComp &&
                         (
                             <Tabs defaultActiveKey="drag-base" size="small">
-                                <TabPane tab="基本配置" key="drag-base">
+                                <TabPane tab="样式配置" key="drag-base">
                                     <Form>
                                         <Row gutter={24}>
                                             <Col span={12}>
@@ -200,23 +200,24 @@ class DragList extends Component {
                                 <TabPane tab="维度设置" key="base-data">
                                     <Select style={{ width: 200 }}
                                         value={focusComp.rowDim}
-                                        placeholder="请选择行维度"
-                                        onChange={value => this.props.changeRowDim([value])}>
+                                        placeholder="请选择维度"
+                                        onChange={value => this.props.changeRowDim(value)}>
                                         {this.getDataDimSelector()}
                                     </Select>
                                     <Select style={{ width: 200 }}
                                         value={focusComp.colDim}
-                                        placeholder="请选择列维度"
-                                        onChange={value => this.props.changeColDim([value])}>
+                                        placeholder="请选择值"
+                                        mode="multiple"
+                                        onChange={value => this.props.changeColDim(value)}>
                                         {this.getDataDimSelector()}
                                     </Select>
-                                    <Select style={{ width: 200 }}
+                                    {/* <Select style={{ width: 200 }}
                                         value={focusComp.renderValue}
                                         placeholder="请选择显示的值"
                                         mode="multiple"
                                         onChange={value => this.props.changeRenderValue([value])}>
                                         {this.getDataDimSelector()}
-                                    </Select>
+                                    </Select> */}
                                 </TabPane>
                             </Tabs>
                         )

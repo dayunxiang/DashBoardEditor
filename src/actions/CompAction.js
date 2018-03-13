@@ -181,11 +181,12 @@ export function exchangeComp(preIndex, nextIndex) {
  * @param {行维度} rowDim 
  */
 export function changeRowDim(rowDim) {
+    let changeRowDim = Array.isArray(rowDim) ? rowDim : [rowDim]
     return dispatch => {
         return dispatch({
             type: 'ChangeRowDim',
             payload: {
-                rowDim
+                rowDim: changeRowDim
             }
         })
     }
@@ -196,11 +197,12 @@ export function changeRowDim(rowDim) {
  * @param {列维度} colDim 
  */
 export function changeColDim(colDim) {
+    let changeColDim = Array.isArray(colDim) ? colDim : [colDim]
     return dispatch => {
         return dispatch({
             type: 'ChangeColDim',
             payload: {
-                colDim
+                colDim: changeColDim
             }
         })
     }

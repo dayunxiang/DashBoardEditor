@@ -24,12 +24,13 @@ import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import {
-    getLineOption, getPieOption, getRadarOption,
+    getLineOption, getRadarOption,
     getScatterOption, getMapOption, getBoxplotOption, getHeatMap, getTreeMap, getSunburstOption,
     getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption
 } from '../options/CompOptions'
 
 import getBarOption from '../adapter/barAdaptor'
+import getPieOption from '../adapter/pieAdaptor'
 
 const type = ItemTypes.EXCHANGE;
 const compKeys = Object.keys(compState)
@@ -89,7 +90,7 @@ class DropCard extends Component {
      */
     componentDidUpdate() {
         let option = this.getOption(this.props.compType)
-        this.chart.setOption(option) // this.chart.setOption(this.compOption, true)
+        this.chart.setOption(option, true)
         this.chart.resize()
     }
 
@@ -104,14 +105,10 @@ class DropCard extends Component {
                 return getLineOption()
             }
             case CompTypes.Bar: {
-                if(this.props.rowDim && this.props.colDim) {
-                    return getBarOption(this.props.data, this.props.rowDim, this.props.colDim)
-                } else {
-                    return null
-                }
+                return getBarOption(this.props.data, this.props.rowDim, this.props.colDim)
             }
             case CompTypes.Pie: {
-                return compOption = getPieOption()
+                return getPieOption(this.props.data, this.props.rowDim, this.props.colDim)
             }
             case CompTypes.Radar: {
                 return compOption = getRadarOption()
