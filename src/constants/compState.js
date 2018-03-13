@@ -8,6 +8,9 @@ const compState = {
     col: 12,
     height: 250,
     bgColor: '#f8f8f8',
+    rowDim: [],
+    colDim: [],
+    renderValue: []
 }
 
 export default compState

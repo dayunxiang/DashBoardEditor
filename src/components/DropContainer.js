@@ -7,10 +7,10 @@ import { DropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 import ItemTypes from '../constants/ItemTypes'
 import classnames from 'classnames'
-import { Row, Col, Button, Tooltip, Modal, Input, message } from 'antd'
+import { Row, Col, Button, Tooltip, Modal, message } from 'antd'
 import { dropComponent, focusComponent, closeComp, emptyComp, setFull, exchangeComp } from '../actions/CompAction'
 import DropCard from './DropCard'
-
+import data from '../constants/pivotData'
 
 // const ButtonGroup = Button.Group;
 const type = ItemTypes.DRAG;
@@ -42,18 +42,17 @@ class DropContainer extends Component {
             const isAcive = this.props.focusIndex === index
             const isRealFull = isAcive && this.props.isFull
             return <DropCard 
-                        compType={eachComp.compType}
+                        {...eachComp}
                         key={eachComp.id}
                         index={index}
                         isAcive={isAcive}
                         isFull={isRealFull}
-                        col={eachComp.col}
-                        height={eachComp.height}
-                        bgColor={eachComp.bgColor}
+                        data={data}
                         exchangeComp ={(nextIndex) => {this.props.exchangeComp(this.props.focusIndex, nextIndex)}}
                         onFocus={(index)=> {this.onFocus(index)}}
                         onFull={(isFull, index)=> {this.onFull(isFull, index)}}
-                        onClose={(index)=> {this.onCompClose(index)}}/>
+                        onClose={(index)=> {this.onCompClose(index)}}
+                        />
         })
     }
 
@@ -183,7 +182,10 @@ function mapStateToProps(state) {
         compType: state.dragStore.compType,
         compCollection: state.dragStore.compCollection,
         focusIndex: state.dragStore.focusIndex,
-        isFull: state.dragStore.isFull
+        isFull: state.dragStore.isFull,
+        rowDim: state.dragStore.rowDim,
+        colDim: state.dragStore.colDim,
+        renderValue: state.dragStore.renderValue
     }
 }
 
@@ -193,7 +195,7 @@ export default connect(mapStateToProps, {
     closeComp, 
     emptyComp,
     setFull,
-    exchangeComp
+    exchangeComp,
 })(DropTarget(type, spec, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),

@@ -1,5 +1,6 @@
 /**
- * Created by edeity on 2018/3/1.
+ * 拖拽
+ * @param {拖拽类型hu} type 
  */
 export function dragComponent(type) {
     return dispatch => {
@@ -12,6 +13,10 @@ export function dragComponent(type) {
     }
 }
 
+/**
+ * 放置
+ * @param {放置类型} type 
+ */
 export function dropComponent(type) {
     return dispatch => {
         return dispatch({
@@ -23,6 +28,10 @@ export function dropComponent(type) {
     }
 }
 
+/**
+ * 聚焦
+ * @param {聚焦索引} index 
+ */
 export function focusComponent(index) {
     return dispatch => {
         return dispatch({
@@ -34,6 +43,10 @@ export function focusComponent(index) {
     }
 }
 
+/**
+ * 
+ * @param {改变列宽} col 
+ */
 export function changeCol(col) {
     return dispatch => {
         return dispatch({
@@ -45,6 +58,10 @@ export function changeCol(col) {
     }
 }
 
+/**
+ * 
+ * @param {改变高度} height 
+ */
 export function changeHeight(height) {
     return dispatch => {
         return dispatch({
@@ -56,6 +73,10 @@ export function changeHeight(height) {
     }
 }
 
+/**
+ * 
+ * @param {改变背景颜色} bgColor 
+ */
 export function changeBgColor(bgColor) {
     return dispatch => {
         return dispatch({
@@ -67,6 +88,10 @@ export function changeBgColor(bgColor) {
     }
 }
 
+/**
+ * 
+ * @param {改变组件类型} compType 
+ */
 export function changeComp(compType) {
     return dispatch => {
         return dispatch({
@@ -78,6 +103,10 @@ export function changeComp(compType) {
     }
 }
 
+/**
+ * 
+ * @param {关闭索引} index 
+ */
 export function closeComp(index) {
     return dispatch => {
         return dispatch({
@@ -89,6 +118,9 @@ export function closeComp(index) {
     }
 }
 
+/**
+ * 清空所有的组件
+ */
 export function emptyComp() {
     return dispatch => {
         return dispatch({
@@ -97,6 +129,10 @@ export function emptyComp() {
     }
 }
 
+/**
+ * 
+ * @param {导入组件} compCollection 
+ */
 export function setCompCollection(compCollection) {
     return dispatch => {
         return dispatch({
@@ -108,6 +144,9 @@ export function setCompCollection(compCollection) {
     }
 }
 
+/**
+ * 是否全屏模式
+ */
 export function setFull(isFull, index) {
     return dispatch => {
         return dispatch({
@@ -120,6 +159,11 @@ export function setFull(isFull, index) {
     }
 }
 
+/**
+ * 
+ * @param {交换的索引} preIndex 
+ * @param {被交换的索引} nextIndex 
+ */
 export function exchangeComp(preIndex, nextIndex) {
     return dispatch => {
         return dispatch({
@@ -127,6 +171,51 @@ export function exchangeComp(preIndex, nextIndex) {
             payload: {
                 preIndex,
                 nextIndex
+            }
+        })
+    }
+}
+
+/**
+ * 
+ * @param {行维度} rowDim 
+ */
+export function changeRowDim(rowDim) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeRowDim',
+            payload: {
+                rowDim
+            }
+        })
+    }
+}
+
+/**
+ * 
+ * @param {列维度} colDim 
+ */
+export function changeColDim(colDim) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeColDim',
+            payload: {
+                colDim
+            }
+        })
+    }
+}
+
+/**
+ * 
+ * @param {其他值} renderValue 
+ */
+export function changeRenderValue(renderValue) {
+    return dispatch => {
+        return dispatch({
+            type: 'ChangeRenderValue',
+            payload: {
+                renderValue
             }
         })
     }

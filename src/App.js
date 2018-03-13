@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import {NavLink, Route} from 'react-router-dom';
-import DragPage from './pages/DragPage';
-import Pivot from './pages/Pivot';
+import React, {Component} from 'react'
+import {NavLink, Route} from 'react-router-dom'
+import Pure from './pages/PureData'
+import DragPage from './pages/DragPage'
+import Pivot from './pages/Pivot'
 // import {Row, Col} from 'antd';
 import './App.css';
 
@@ -13,6 +14,9 @@ class App extends Component {
                     <h1>Visualized Data</h1>
                     <div className="nav-panel">
                         <NavLink className="item" activeClassName="active" exact to="/">
+                            <span>原始数据</span>
+                        </NavLink>
+                        <NavLink className="item" exact to="/dashboard">
                             <span>仪表盘编辑</span>
                         </NavLink>
                         <NavLink className="item" to="/pivot">
@@ -21,7 +25,8 @@ class App extends Component {
                     </div>
                 </div>
                 <div className="content">
-                    <Route exact path="/" component={DragPage}/>
+                    <Route exact path="/" component={Pure}/>
+                    <Route exact path="/dashboard" component={DragPage}/>
                     <Route path="/pivot" component={Pivot}/>
                 </div>
             </div>

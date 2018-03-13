@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import './BigTable.css'
-import { CopyToClipboard } from 'react-copy-to-clipboard/lib/Component';
+// import { CopyToClipboard } from 'react-copy-to-clipboard/lib/Component';
 
 const MOUSE_TYPE = {
     LEFT_DOWN: 0,
@@ -245,7 +245,9 @@ class BigTable extends Component {
                 fRow: sRow,
                 fCol: sCol
             })
-        }
+             // fix： 右键菜单
+            this.hideContentMenu(e)
+        }  
         // e.preventDefault()
         // return false
     }
@@ -651,8 +653,7 @@ class BigTable extends Component {
         const activeHeight = (this.state.activeEndRow - this.state.activeStartRow + 1) * this.cellHeight
         return (
             <div className="big-table"
-                ref="bigTable"
-                onMouseDown={(e) => { this.hideContentMenu(e) }}>
+                ref="bigTable">
                 <div className="big-table-row">
                     {/* 第一个单元格 */}
                     <div className={(this.state.isLeftFixed || this.state.isTopFixed) ? "fir-col fixed" : "fir-col"}
@@ -740,11 +741,11 @@ class BigTable extends Component {
                         </div> */}
                         <div className="content-menu-btn-group">
                             <a className="content-menu-btn"
-                                onClick={e => this.inserBefore(e)}>向前插入行</a>
+                                onClick={e => {this.inserBefore(e); this.hideContentMenu(e)}}>向前插入行</a>
                             <a className="content-menu-btn"
-                                onClick={e => this.insertAfter(e)}>向后插入行</a>
+                                onClick={e => {this.insertAfter(e); this.hideContentMenu(e)}}>向后插入行</a>
                             <a className="content-menu-btn"
-                                onClick={e => this.onRowDelete(e)}>删除行</a>
+                                onClick={e => {this.onRowDelete(e); this.hideContentMenu(e)}}>删除行</a>
                         </div>
                     </div>
                 }

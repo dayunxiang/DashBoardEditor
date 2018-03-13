@@ -124,6 +124,30 @@ export default(state=appState, action={}) => {
                 }
             }
         }
+        case 'ChangeRowDim': {
+            let compCollection = Object.assign([], state.compCollection)
+            compCollection[state.focusIndex].rowDim = action.payload.rowDim
+            return {
+                ...state,
+                compCollection
+            }
+        }
+        case 'ChangeColDim': {
+            let compCollection = Object.assign([], state.compCollection)
+            compCollection[state.focusIndex].colDim = action.payload.colDim
+            return {
+                ...state,
+                compCollection
+            }
+        }
+        case 'ChangeRenderValue': {
+            let compCollection = Object.assign([], state.compCollection)
+            compCollection[state.focusIndex].renderValue = action.payload.renderValue
+            return {
+                ...state,
+                compCollection
+            }
+        }
         default:
             return state;
     }

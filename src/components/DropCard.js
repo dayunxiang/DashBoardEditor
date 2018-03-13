@@ -7,8 +7,9 @@ import classnames from 'classnames'
 import { Col, Icon } from 'antd'
 import echarts from 'echarts/lib/echarts'
 import CompTypes from '../constants/CompTypes'
-import { DragSource, DropTarget } from 'react-dnd';
-import ItemTypes from '../constants/ItemTypes';
+import { DragSource, DropTarget } from 'react-dnd'
+import ItemTypes from '../constants/ItemTypes'
+import compState from '../constants/compState'
 // 引入组件
 import 'echarts/lib/chart/bar' // 柱形图
 import 'echarts/lib/chart/pie' // 饼图
@@ -23,12 +24,15 @@ import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import {
-    getLineOption, getBarOption, getPieOption, getRadarOption,
+    getLineOption, getPieOption, getRadarOption,
     getScatterOption, getMapOption, getBoxplotOption, getHeatMap, getTreeMap, getSunburstOption,
     getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption
 } from '../options/CompOptions'
 
+import getBarOption from '../adapter/barAdaptor'
+
 const type = ItemTypes.EXCHANGE;
+const compKeys = Object.keys(compState)
 const dragSpec = {
     beginDrag(props) {
         return {
@@ -45,92 +49,107 @@ const dropSpec = {
 class DropCard extends Component {
     chart = null
     static propTypes = {
-        connectDropSource: PropTypes.func.isRequired,
-        connectDragSource: PropTypes.func.isRequired,
-        exchangeComp: PropTypes.func.isRequired,
-        onFocus: PropTypes.func.isRequired,
+        compType: PropTypes.string.isRequired,
         index: PropTypes.number.isRequired,
         isAcive: PropTypes.bool.isRequired,
         isFull: PropTypes.bool,
         col: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequried
+        height: PropTypes.number,
+        // 显示的数据
+        data: PropTypes.array.isRequired,
+        rowDim: PropTypes.array.isRequired,
+        colDim: PropTypes.array.isRequired,
+        renderValue: PropTypes.array.isRequired,
+        // 事件
+        connectDropSource: PropTypes.func.isRequired,
+        connectDragSource: PropTypes.func.isRequired,
+        exchangeComp: PropTypes.func.isRequired,
+        onFocus: PropTypes.func.isRequired,
     }
     componentDidMount() {
         const id = "card-render-" + this.props.index
         this.chart = echarts.init(document.getElementById(id))
-        this.compOption = null
-        switch (this.props.compType) {
-            case CompTypes.Line: {
-                this.compOption = getLineOption()
-                break
-            }
-            case CompTypes.Bar: {
-                this.compOption = getBarOption()
-                break
-            }
-            case CompTypes.Pie: {
-                this.compOption = getPieOption()
-                break
-            }
-            case CompTypes.Radar: {
-                this.compOption = getRadarOption()
-                break
-            }
-            case CompTypes.Scatter: {
-                this.compOption = getScatterOption()
-                break
-            }
-            case CompTypes.Map: {
-                this.compOption = getMapOption()
-                break
-            }
-            case CompTypes.Boxplot: {
-                this.compOption = getBoxplotOption()
-                break
-            }
-            case CompTypes.Heatmap: {
-                this.compOption = getHeatMap()
-                break
-            }
-            case CompTypes.Treemap: {
-                this.compOption = getTreeMap()
-                break
-            }
-            case CompTypes.Sunburst: {
-                this.compOption = getSunburstOption()
-                break
-            }
-            case CompTypes.Parallel: {
-                this.compOption = getParrallelOption()
-                break
-            }
-            case CompTypes.Funnel: {
-                this.compOption = getFunnelOption()
-                break
-            }
-            case CompTypes.Gauge: {
-                this.compOption = getGaugeOption()
-                break
-            }
-            case CompTypes.Calendar: {
-                this.compOption = getCalendarOption()
-                break
-            }
-            default: {
-                break;
-            }
-        }
-        this.chart.setOption(this.compOption)
+        let compOption = this.getOption(this.props.compType)
+        this.chart.setOption(compOption)
     }
+
+    /**
+     * 仅且仅当compState变更时，才会变更
+     */   
+    // shouldComponentUpdate(nextProp) {
+        // let shoudUpdate = false
+        // shoudUpdate =   compKeys.some((eachKey) => {
+        //     return this.props[eachKey] !== nextProp[eachKey]
+        // });
+        // return shoudUpdate 
+    // }
+
+    /**
+     * 更新DropCard的同时，更新echart
+     */
     componentDidUpdate() {
-        if (this.compOption && this.props.isAcive) {
-            this.chart.setOption(this.compOption)
-            // this.chart.setOption(this.compOption, true)
-            this.chart.resize()
-        }
+        let option = this.getOption(this.props.compType)
+        this.chart.setOption(option) // this.chart.setOption(this.compOption, true)
+        this.chart.resize()
     }
+
     componentWillUnmount() {
         this.chart.dispose();
+    }
+
+    getOption(compType) {
+        let compOption = null
+        switch (compType) {
+            case CompTypes.Line: {
+                return getLineOption()
+            }
+            case CompTypes.Bar: {
+                if(this.props.rowDim && this.props.colDim) {
+                    return getBarOption(this.props.data, this.props.rowDim, this.props.colDim)
+                } else {
+                    return null
+                }
+            }
+            case CompTypes.Pie: {
+                return compOption = getPieOption()
+            }
+            case CompTypes.Radar: {
+                return compOption = getRadarOption()
+            }
+            case CompTypes.Scatter: {
+                return compOption = getScatterOption()
+            }
+            case CompTypes.Map: {
+                return compOption = getMapOption()
+            }
+            case CompTypes.Boxplot: {
+                return compOption = getBoxplotOption()
+            }
+            case CompTypes.Heatmap: {
+                return compOption = getHeatMap()
+            }
+            case CompTypes.Treemap: {
+                return compOption = getTreeMap()
+            }
+            case CompTypes.Sunburst: {
+                return compOption = getSunburstOption()
+            }
+            case CompTypes.Parallel: {
+                return compOption = getParrallelOption()
+            }
+            case CompTypes.Funnel: {
+                return compOption = getFunnelOption()
+            }
+            case CompTypes.Gauge: {
+                return compOption = getGaugeOption()
+            }
+            case CompTypes.Calendar: {
+                return compOption = getCalendarOption()
+            }
+            default: {
+                return null
+            }
+        }
     }
 
     onFocus = () => {
@@ -142,11 +161,7 @@ class DropCard extends Component {
     onClose = () => {
         this.props.onClose(this.props.index)
     }
-    static propTypes = {
-        index: PropTypes.number.isRequired,
-        col: PropTypes.number.isRequired,
-        compType: PropTypes.string.isRequired,
-    }
+
     render() {
         const props = this.props
         // const { connectDragSource, connectDropTarget } = props;
