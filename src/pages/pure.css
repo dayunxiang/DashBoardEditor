@@ -3,8 +3,10 @@
   height: calc(100vh - 50px);
   padding: 10px;
   background: white; }
-  .pure-containr .pure-table-container {
-    height: calc(100vh - 130px);
-    overflow: auto; }
-    .pure-containr .pure-table-container .pure-table .cell {
-      min-width: 100px; }
+
+.pure-containr .pure-table-container {
+  height: calc(100vh - 130px);
+  overflow: auto; }
+
+.pure-containr .pure-table-container .pure-table .cell {
+  min-width: 100px; }

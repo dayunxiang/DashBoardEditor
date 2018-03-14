@@ -5,134 +5,163 @@
   padding: 5px;
   text-align: center;
   margin-right: 10px; }
-  .drag-panel .drop-container .container-tool-bar {
-    padding: 5px;
-    z-index: 2;
-    text-align: right; }
-    .drag-panel .drop-container .container-tool-bar .container-tool-btn {
-      margin: 0 5px; }
-  .drag-panel .drop-container .measure .ant-col-1:first-child .measure-block {
-    border-left: 1px solid #dadada; }
-  .drag-panel .drop-container .measure .measure-block {
-    height: 5px;
-    margin-top: 5px;
-    border-bottom: 1px solid #dadada;
-    border-right: 1px solid #dadada; }
-    .drag-panel .drop-container .measure .measure-block.em-block {
-      height: 10px;
-      margin-top: 0;
-      border-right: 1px solid #c1c1c1; }
-  .drag-panel .drop-container .container-comp-panel {
-    height: calc(100vh - 105px);
-    overflow: auto; }
-    .drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container {
-      position: relative; }
-      .drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container .drop-tips {
-        z-index: 2;
-        position: absolute;
-        display: flex;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        line-height: 100%;
-        color: white;
-        background: #666;
-        opacity: 0.7;
-        font-size: 18px;
-        text-align: center;
-        justify-content: center;
-        align-items: center; }
-    .drag-panel .drop-container .container-comp-panel.is-full .drop-card-container {
-      display: none; }
-      .drag-panel .drop-container .container-comp-panel.is-full .drop-card-container.is-active {
-        display: block; }
-    .drag-panel .drop-container .container-comp-panel .container-tips {
-      line-height: calc(100vh - 105px);
-      font-size: 30px;
-      color: #c3c6c3; }
-    .drag-panel .drop-container .container-comp-panel .place-comp {
-      display: block;
-      height: 250px;
-      line-height: 250px;
-      margin: 5px;
-      border: 1px solid white; }
-    .drag-panel .drop-container .container-comp-panel .drop-card {
-      box-sizing: border-box;
-      position: relative;
-      display: block;
-      height: 250px;
-      line-height: 250px;
-      margin: 5px;
-      text-align: center;
-      background: #efefef;
-      border-radius: 3px;
-      outline: none;
-      border: 1px solid #efefef; }
-      .drag-panel .drop-container .container-comp-panel .drop-card.is-active {
-        outline: none;
-        border: 1px solid #0b97c4; }
-      .drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar {
-        height: 30px; }
-        .drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar .anticon {
-          opacity: 1; }
-      .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 0;
-        line-height: 30px;
-        z-index: 2;
-        text-align: right;
-        transition: all 0.2s ease; }
-        .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .drop-tool-btn {
-          display: inline-block; }
-        .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .anticon {
-          opacity: 0;
-          padding: 0 5px;
-          transition: all 0.2s ease; }
-          .drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .anticon:hover {
-            color: #0b97c4;
-            cursor: pointer; }
-      .drag-panel .drop-container .container-comp-panel .drop-card .card-render {
-        width: 100%;
-        height: 100%; }
+
+.drag-panel .drop-container .container-tool-bar {
+  padding: 5px;
+  z-index: 2;
+  text-align: right; }
+
+.drag-panel .drop-container .container-tool-bar .container-tool-btn {
+  margin: 0 5px; }
+
+.drag-panel .drop-container .measure .ant-col-1:first-child .measure-block {
+  border-left: 1px solid #dadada; }
+
+.drag-panel .drop-container .measure .measure-block {
+  height: 5px;
+  margin-top: 5px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada; }
+
+.drag-panel .drop-container .measure .measure-block.em-block {
+  height: 10px;
+  margin-top: 0;
+  border-right: 1px solid #c1c1c1; }
+
+.drag-panel .drop-container .container-comp-panel {
+  height: calc(100vh - 105px);
+  overflow: auto; }
+
+.drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container {
+  position: relative; }
+
+.drag-panel .drop-container .container-comp-panel .dnd-container .drop-card-container .drop-tips {
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 100%;
+  color: white;
+  background: #666;
+  opacity: 0.7;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  align-items: center; }
+
+.drag-panel .drop-container .container-comp-panel.is-full .drop-card-container {
+  display: none; }
+
+.drag-panel .drop-container .container-comp-panel.is-full .drop-card-container.is-active {
+  display: block; }
+
+.drag-panel .drop-container .container-comp-panel .container-tips {
+  line-height: calc(100vh - 105px);
+  font-size: 30px;
+  color: #c3c6c3; }
+
+.drag-panel .drop-container .container-comp-panel .place-comp {
+  display: block;
+  height: 250px;
+  line-height: 250px;
+  margin: 5px;
+  border: 1px solid white; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  height: 250px;
+  line-height: 250px;
+  margin: 5px;
+  text-align: center;
+  background: #efefef;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #efefef; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card.is-active {
+  outline: none;
+  border: 1px solid #0b97c4; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar {
+  height: 30px; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card:hover .drop-tool-bar .anticon {
+  opacity: 1; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 0;
+  line-height: 30px;
+  z-index: 2;
+  text-align: right;
+  transition: all 0.2s ease; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .drop-tool-btn {
+  display: inline-block; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .anticon {
+  opacity: 0;
+  padding: 0 5px;
+  transition: all 0.2s ease; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .drop-tool-bar .anticon:hover {
+  color: #0b97c4;
+  cursor: pointer; }
+
+.drag-panel .drop-container .container-comp-panel .drop-card .card-render {
+  width: 100%;
+  height: 100%; }
 
 .drag-panel .drag-list {
   padding: 24px 12px;
   height: calc(100vh - 50px);
   background: white;
   overflow: auto; }
-  .drag-panel .drag-list .drag-total {
-    height: 50%;
-    overflow: auto; }
-  .drag-panel .drag-list .drag-config {
-    height: 50%;
-    overflow: auto; }
-  .drag-panel .drag-list .config-bar {
-    margin-bottom: 5px;
-    text-align: right; }
-  .drag-panel .drag-list .drag-card {
-    display: block;
-    margin: 5px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    background: #efefef; }
-    .drag-panel .drag-list .drag-card:hover {
-      background: #e1e1e1; }
-  .drag-panel .drag-list .color-container {
-    display: inline-block;
-    border: 1px solid #e1e1e1;
-    padding: 5px;
-    margin: 0 5px 5px;
-    border-radius: 5px;
-    vertical-align: middle; }
-    .drag-panel .drag-list .color-container .color-block {
-      width: 40px;
-      height: 20px; }
-  .drag-panel .drag-list .ant-form-item {
-    margin-bottom: 0; }
+
+.drag-panel .drag-list .drag-total {
+  height: 50%;
+  overflow: auto; }
+
+.drag-panel .drag-list .drag-config {
+  height: 50%;
+  overflow: auto; }
+
+.drag-panel .drag-list .config-bar {
+  margin-bottom: 5px;
+  text-align: right; }
+
+.drag-panel .drag-list .drag-card {
+  display: block;
+  margin: 5px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #efefef; }
+
+.drag-panel .drag-list .drag-card:hover {
+  background: #e1e1e1; }
+
+.drag-panel .drag-list .color-container {
+  display: inline-block;
+  border: 1px solid #e1e1e1;
+  padding: 5px;
+  margin: 0 5px 5px;
+  border-radius: 5px;
+  vertical-align: middle; }
+
+.drag-panel .drag-list .color-container .color-block {
+  width: 40px;
+  height: 20px; }
+
+.drag-panel .drag-list .ant-form-item {
+  margin-bottom: 0; }
 
 .drag-panel .ant-select {
   margin: 0 8px 10px 0; }

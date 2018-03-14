@@ -1,10 +1,10 @@
 /**
  * Created by edeity on 2018/3/5.
  */
-export default {
+const COMP_TYPE = {
     // Line: '折线',
     Bar: '柱状',
-    // Pie: '饼图',
+    Pie: '饼图',
     // Scatter: '分散图',
     // Map: '地图',
     // Candlestick: '走势图',
@@ -18,4 +18,20 @@ export default {
     // Funnel: '漏斗图',
     // Gauge: '测量图',
     // Calendar: '日历图'
+}
+
+export default COMP_TYPE
+
+
+export function getCompConfig(compType) {
+    switch(compType) {
+        case COMP_TYPE.Bar: return {
+            x: '',
+            y: 'multiple'
+        }
+        case COMP_TYPE.Pie: return {
+            x: '',
+            y: ''
+        }
+    }
 }

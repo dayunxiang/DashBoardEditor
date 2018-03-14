@@ -6,7 +6,7 @@ import { Row, Col, Form, Select, InputNumber, Tabs, Button, Popover, Tooltip, Up
 import DragCard from './DragCard'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import CompTypes from '../constants/CompTypes'
+import CompTypes, { getCompConfig }  from '../constants/CompTypes'
 import { CompactPicker } from 'react-color'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
@@ -72,6 +72,10 @@ class DragList extends Component {
 
     render() {
         const focusComp = this.props.compCollection[this.props.focusIndex]
+        let compAttr
+        if(focusComp) {
+            compAttr = getCompConfig(focusComp.compType)
+        }
         const compCollectionConfig = JSON.stringify(this.props.compCollection).replace(/{/g, '\n {').replace(/}/g, '}\n')
         // 读取文件配置，该组件仅用于读取
         const uploadProps = {
@@ -197,27 +201,22 @@ class DragList extends Component {
                                         </Row>
                                     </Form>
                                 </TabPane>
+                               
                                 <TabPane tab="维度设置" key="base-data">
                                     <Select style={{ width: 200 }}
                                         value={focusComp.rowDim}
-                                        placeholder="请选择维度"
+                                        placeholder="请选择维度值"
+                                        mode={compAttr.x}
                                         onChange={value => this.props.changeRowDim(value)}>
                                         {this.getDataDimSelector()}
                                     </Select>
                                     <Select style={{ width: 200 }}
                                         value={focusComp.colDim}
-                                        placeholder="请选择值"
-                                        mode="multiple"
+                                        placeholder="请选择对比值"
+                                        mode={compAttr.y}
                                         onChange={value => this.props.changeColDim(value)}>
                                         {this.getDataDimSelector()}
                                     </Select>
-                                    {/* <Select style={{ width: 200 }}
-                                        value={focusComp.renderValue}
-                                        placeholder="请选择显示的值"
-                                        mode="multiple"
-                                        onChange={value => this.props.changeRenderValue([value])}>
-                                        {this.getDataDimSelector()}
-                                    </Select> */}
                                 </TabPane>
                             </Tabs>
                         )
