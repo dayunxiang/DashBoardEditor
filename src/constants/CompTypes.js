@@ -2,7 +2,7 @@
  * Created by edeity on 2018/3/5.
  */
 const COMP_TYPE = {
-    // Line: '折线',
+    Line: '折线',
     Bar: '柱状',
     Pie: '饼图',
     // Scatter: '分散图',
@@ -25,11 +25,19 @@ export default COMP_TYPE
 
 export function getCompConfig(compType) {
     switch(compType) {
+        case COMP_TYPE.Line: return {
+            x: 'multiple',
+            y: ''
+        }
         case COMP_TYPE.Bar: return {
             x: '',
             y: 'multiple'
         }
         case COMP_TYPE.Pie: return {
+            x: '',
+            y: ''
+        }
+        default: return {
             x: '',
             y: ''
         }

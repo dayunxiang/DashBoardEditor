@@ -1,0 +1,13 @@
+.pivot-containr {
+  margin: 10px;
+  min-height: calc(100vh - 50px);
+  width: calc(100vw - 20px);
+  overflow: auto; }
+
+.pivot-containr .pvtRenderers {
+  border-left: 1px solid #A2B1C5;
+  border-top: 1px solid #A2B1C5;
+  background: #efefef; }
+
+.pivot-containr .pvtAxisContainer, .pivot-containr .pvtVals {
+  background: #efefef; }

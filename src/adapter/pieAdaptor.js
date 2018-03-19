@@ -16,7 +16,7 @@ export default function(data, x, y) {
     let header = data[0]
     let rowLength = data.length
    
-    let xDim = {}
+    // let xDim = {}
     let xCollection = {}
     let yCollection = {}
    
@@ -30,7 +30,7 @@ export default function(data, x, y) {
     for(let i = 1; i<rowLength; i++) {
         // 添加x轴的新值
         let xValue = data[i][xIndex]
-        let yValue = parseInt(data[i][yIndex])
+        let yValue = parseInt(data[i][yIndex], 10)
         if(!xCollection[xValue]) {
             xCollection[xValue] = xValue
         }

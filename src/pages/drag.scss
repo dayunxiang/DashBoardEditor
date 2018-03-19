@@ -1,9 +1,9 @@
 $contentHeight: calc(100vh - 50px);
 .drag-panel {
+  background: #efefef;
     .drop-container {
       position: relative;
       height: $contentHeight;
-      background: white;
       padding: 5px;
       text-align: center;
       margin-right: 10px;

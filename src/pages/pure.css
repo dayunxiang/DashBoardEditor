@@ -1,8 +1,7 @@
 .pure-containr {
   width: 100vw;
   height: calc(100vh - 50px);
-  padding: 10px;
-  background: white; }
+  padding: 10px; }
 
 .pure-containr .pure-table-container {
   height: calc(100vh - 130px);

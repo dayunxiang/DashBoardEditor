@@ -20,8 +20,7 @@ export default function(data, x, y) {
         let header = data[0]
         let rowLength = data.length
         // let colLength = data[0].length
-       
-        let xDim = {}
+      
         let xIndex = header.indexOf(x[0]) // bar 中 x 只统计一个维度
         if(xIndex === -1) {
             return getNullOption

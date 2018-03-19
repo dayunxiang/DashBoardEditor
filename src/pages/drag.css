@@ -1,7 +1,9 @@
+.drag-panel {
+  background: #efefef; }
+
 .drag-panel .drop-container {
   position: relative;
   height: calc(100vh - 50px);
-  background: white;
   padding: 5px;
   text-align: center;
   margin-right: 10px; }

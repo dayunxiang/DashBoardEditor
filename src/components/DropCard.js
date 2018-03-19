@@ -9,7 +9,7 @@ import echarts from 'echarts/lib/echarts'
 import CompTypes from '../constants/CompTypes'
 import { DragSource, DropTarget } from 'react-dnd'
 import ItemTypes from '../constants/ItemTypes'
-import compState from '../constants/compState'
+// import compState from '../constants/compState'
 // 引入组件
 import 'echarts/lib/chart/bar' // 柱形图
 import 'echarts/lib/chart/pie' // 饼图
@@ -24,16 +24,17 @@ import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import {
-    getLineOption, getRadarOption,
-    getScatterOption, getMapOption, getBoxplotOption, getHeatMap, getTreeMap, getSunburstOption,
+    getRadarOption, getScatterOption, getMapOption, getBoxplotOption, getHeatMap, 
+    getTreeMap, getSunburstOption,
     getParrallelOption, getFunnelOption, getGaugeOption, getCalendarOption
 } from '../options/CompOptions'
 
+import getLineOption from '../adapter/lineAdaptor'
 import getBarOption from '../adapter/barAdaptor'
 import getPieOption from '../adapter/pieAdaptor'
 
 const type = ItemTypes.EXCHANGE;
-const compKeys = Object.keys(compState)
+// const compKeys = Object.keys(compState)
 const dragSpec = {
     beginDrag(props) {
         return {
@@ -102,7 +103,7 @@ class DropCard extends Component {
         let compOption = null
         switch (compType) {
             case CompTypes.Line: {
-                return getLineOption()
+                return getLineOption(this.props.data, this.props.rowDim, this.props.colDim)
             }
             case CompTypes.Bar: {
                 return getBarOption(this.props.data, this.props.rowDim, this.props.colDim)
@@ -210,4 +211,3 @@ export default DropTarget(type, dropSpec, (connect, monitor) => ({
 }))(DragSource(type, dragSpec, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
 }))(DropCard))
-
